@@ -176,9 +176,14 @@
             <label>Foto Produk (Opsional)</label>
             <div class="d-flex align-items-center p-2 border rounded bg-light">
               @if ($item->gambar)
-                <img src="{{ asset('uploads/' . $item->gambar) }}" class="rounded mr-3 border" style="width: 60px; height: 60px; object-fit: cover;">
+                <img id="previewEdit{{$item->id_produk}}" src="{{ asset('uploads/' . $item->gambar) }}" class="rounded mr-3 border bg-white" style="width: 65px; height: 65px; object-fit: cover;">
+              @else
+                <img id="previewEdit{{$item->id_produk}}" src="" class="rounded mr-3 border bg-white d-none" style="width: 65px; height: 65px; object-fit: cover;">
+                <div id="iconEdit{{$item->id_produk}}" class="rounded mr-3 border bg-white d-flex align-items-center justify-content-center text-muted" style="width: 65px; height: 65px; flex-shrink: 0;">
+                  <i class="fas fa-image fa-lg"></i>
+                </div>
               @endif
-              <input type="file" name="gambar" class="form-control-file" accept="image/*">
+              <input type="file" name="gambar" class="form-control-file" accept="image/*" onchange="previewEditGambar(this, {{$item->id_produk}})">
             </div>
           </div>
         </div>
@@ -274,6 +279,25 @@
   function gantiHalamanProduk(arah) {
     halamanProduk += arah;
     tampilkanProduk();
+  }
+
+  // Live preview gambar di dalam Modal Edit Produk
+  function previewEditGambar(input, id) {
+    const preview = document.getElementById('previewEdit' + id);
+    const icon = document.getElementById('iconEdit' + id);
+
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        preview.src = e.target.result;
+        preview.classList.remove('d-none');
+        if (icon) {
+          icon.classList.remove('d-flex');
+          icon.classList.add('d-none');
+        }
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
   }
 
   // Jalankan saat halaman pertama kali dibuka
