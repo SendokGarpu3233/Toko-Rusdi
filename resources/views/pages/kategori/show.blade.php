@@ -47,9 +47,9 @@
       <td>{{$item->nama_kategori}}</td>
       <td>{{$item->deskripsi}}</td>
       <td class="text-nowrap" style="width: 1%;">
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#DetailKat{{$item->id_kategori}}">Detail</button>
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Editkat{{$item->id_kategori}}">Edit</button>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Hapus{{$item->id_kategori}}">
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#DetailKat{{$item->id_kategori}}">Detail</button>
+        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Editkat{{$item->id_kategori}}">Edit</button>
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Hapus{{$item->id_kategori}}">
             Hapus
         </button>
       </td>

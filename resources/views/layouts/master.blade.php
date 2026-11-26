@@ -21,6 +21,33 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('sbadmin')}}/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Optimasi tampilan agar lega dan rapi di layar HP (Mobile) -->
+    <style>
+        @media (max-width: 767.98px) {
+            .container-fluid {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+            .card-body {
+                padding: 0.9rem;
+            }
+            .table td, .table th {
+                padding: 0.5rem;
+                font-size: 0.875rem;
+                vertical-align: middle;
+            }
+            h1, h2, .h3 {
+                font-size: 1.35rem;
+            }
+            /* Ubah garis pemisah kiri jadi garis atas saat kolom menumpuk di HP */
+            .row > .border-left {
+                border-left: none !important;
+                border-top: 1px solid #e3e6f0;
+                padding-top: 0.75rem;
+            }
+        }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -30,8 +57,9 @@
 
       @include('layouts.sidebar')  
       <script>
-          // Terapkan status sidebar tersimpan seketika (tanpa kedip)
-          if (localStorage.getItem('sidebarToggled') === 'true') {
+          // Di HP (< 768px), otomatis sembunyikan sidebar di awal agar konten 100% lega
+          // Di Laptop (>= 768px), ikuti status tersimpan di localStorage (tanpa kedip)
+          if (window.innerWidth < 768 || localStorage.getItem('sidebarToggled') === 'true') {
               document.body.classList.add('sidebar-toggled');
               document.getElementById('accordionSidebar').classList.add('toggled');
           }
@@ -101,11 +129,13 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset('sbadmin')}}/js/sb-admin-2.min.js"></script>
 
-    <!-- Simpan status buka/tutup sidebar ke localStorage -->
+    <!-- Simpan status buka/tutup sidebar ke localStorage (khusus layar desktop) -->
     <script>
         $('#sidebarToggle, #sidebarToggleTop').on('click', function () {
-            const isToggled = $('#accordionSidebar').hasClass('toggled');
-            localStorage.setItem('sidebarToggled', isToggled);
+            if (window.innerWidth >= 768) {
+                const isToggled = $('#accordionSidebar').hasClass('toggled');
+                localStorage.setItem('sidebarToggled', isToggled);
+            }
         });
     </script>
 

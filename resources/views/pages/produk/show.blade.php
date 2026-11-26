@@ -74,9 +74,9 @@
       <td>{{$item->nama_kategori ?? 'Tanpa kategori'}}</td>
       <td>{{$item->stok}}</td>
       <td class="text-nowrap" style="width: 1%;">
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#Detail{{$item->id_produk}}">Detail</button>
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Edit{{$item->id_produk}}">Edit</button>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Hapus{{$item->id_produk}}">
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#Detail{{$item->id_produk}}">Detail</button>
+        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Edit{{$item->id_produk}}">Edit</button>
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Hapus{{$item->id_produk}}">
             Hapus
         </button>
       </td>
