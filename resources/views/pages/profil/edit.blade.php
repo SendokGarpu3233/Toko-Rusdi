@@ -9,17 +9,6 @@
     </a>
 </div>
 
-{{--Pesan untuk notifikasi sukses--}}
-
-@if (session('pesan'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="fas fa-check-circle mr-2"></i> {{ session('pesan') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-@endif
-
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Informasi Akun</h6>
@@ -43,8 +32,14 @@
                                  style="width: 140px; height: 140px; object-fit: cover;" alt="Foto Profil">
                         @endif
                     </div>
-                    <div class="custom-file mt-2" style="max-width: 260px; margin: 0 auto;">
-                        <input type="file" name="foto" class="form-control-file" id="inputFoto" accept="image/*" onchange="previewImage()">
+                    <h6 class="font-weight-bold text-dark mb-1">{{ $user?->name }}</h6>
+                    <span class="badge badge-primary mb-2">{{ $user?->role== 'super_admin' ? 'Super Admin' : 'Admin' }}</span>
+                    <div class="small text-muted mb-3">Bergabung: {{ $user->created_at?->format('d M Y') }}</div>
+                    <div class="mt-2" style="max-width: 260px; margin: 0 auto;">
+                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('inputFoto').click()">
+                            <i class="fas fa-camera mr-1"></i> Unggah Foto Baru
+                        </button>
+                        <input type="file" name="foto" class="d-none" id="inputFoto" accept="image/*" onchange="previewImage()">
                         <small class="text-muted d-block mt-2">Format: JPG, PNG, WEBP (Maks: 5MB)</small>
                     </div>
                     @error('foto')
@@ -59,7 +54,7 @@
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
                                value="{{ old('name', $user?->name) }}">
                         @error('name')
-                            <div class="invalid-feedback">Tidak Boleh Kosong</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <!-- Email -->
@@ -68,18 +63,38 @@
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
                                value="{{ old('email', $user?->email) }}">
                         @error('email')
-                            <div class="invalid-feedback">Tidak Boleh Kosong</div>
+                            <div class="invalid-feedback">{{ $message}}</div>
                         @enderror
                     </div>
+                    
                     <!-- Password Baru (Opsional) -->
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-3">
                         <label class="font-weight-bold">Password Baru</label>
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" 
-                               placeholder="Kosongkan jika tidak ingin mengganti password">
-                        <small class="text-muted">Minimal 6 karakter jika ingin diubah.</small>
+                        <div class="input-group">
+                            <input type="password" name="password" id="inputPass" class="form-control @error('password') is-invalid @enderror" placeholder="Kosongkan jika tidak ingin mengganti password">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" onclick="togglePass('inputPass', this)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <small class="text-muted d-block mt-1">Minimal 6 karakter jika ingin diubah.</small>
                         @error('password')
-                            <div class="invalid-feedback">Tidak Boleh Kosong </div>
+                            <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror
+                    </div>
+
+                    <!-- Konfirmasi Password Baru -->
+                    <div class="form-group mb-4">
+                        <label class="font-weight-bold">Konfirmasi Password Baru</label>
+                        <div class="input-group">
+                            <input type="password" name="password_confirmation" id="inputPassConfirm" class="form-control" placeholder="Ketik ulang password baru">
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" onclick="togglePass('inputPassConfirm', this)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary px-4">
                         <i class="fas fa-save mr-1"></i> Simpan Perubahan
@@ -101,6 +116,14 @@
             }
             reader.readAsDataURL(input.files[0]);
         }
+    }
+
+    function togglePass(idInput, btn) {
+        const input = document.getElementById(idInput);
+        const icon  = btn.querySelector('i');
+        input.type  = (input.type === 'password') ? 'text' : 'password';
+        icon.classList.toggle('fa-eye');
+        icon.classList.toggle('fa-eye-slash');
     }
 </script>
 @endsection

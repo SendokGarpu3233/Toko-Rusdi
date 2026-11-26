@@ -140,9 +140,14 @@
 
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small font-weight-bold">
-                                    {{ $userAktif->name ?? 'WAWAN' }}
-                                </span>
+                                <div class="mr-2 d-none d-lg-flex flex-column text-right" style="line-height: 1.2;">
+                                    <span class="text-gray-800 small font-weight-bold">
+                                        {{ $userAktif->name ?? 'WAWAN' }}
+                                    </span>
+                                    <span class="badge {{ ($userAktif->role ?? '') == 'super_admin' ? 'badge-primary' : 'badge-secondary' }}" style="font-size: 10px;">
+                                        {{ ($userAktif->role ?? '') == 'super_admin' ? 'Super Admin' : 'Admin' }}
+                                    </span>
+                                </div>
                                 <img class="img-profile rounded-circle" style="object-fit: cover;"
                                     src="{{ $userAktif && $userAktif->foto ? asset('uploads/' . $userAktif->foto) : asset('sbadmin/img/undraw_profile.svg') }}">
                             </a>

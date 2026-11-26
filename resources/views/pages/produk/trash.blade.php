@@ -7,10 +7,6 @@
     <a href="/produk" class="btn btn-secondary btn-sm">Kembali ke Produk</a>
 </div>
 
-@if (session('pesan'))
-    <div class="alert alert-success">{{ session('pesan') }}</div>
-@endif
-
 @php
     $tabAktif = session('tab', 'produk');
 @endphp

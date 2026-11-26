@@ -8,18 +8,6 @@
 </div>
 
 
-@if (session('pesan'))
-    <div class="alert alert-primary">{{ session('pesan') }}</div>
-@endif
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 <hr>
 
 <div class="card">
@@ -82,7 +70,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-        <button type="submit" class="btn btn-primary">Iya</button>
+        <button type="submit" class="btn btn-danger">Iya</button>
       </div>
     </form>
   </div>

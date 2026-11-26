@@ -24,10 +24,11 @@ class ProfileController extends Controller
         $request->validate([
             'name'     => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s\.]+$/'],
             'email'    => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:6',
+            'password' => 'nullable|min:6|confirmed',
             'foto'     => 'nullable|image|mimes:jpg,png,jpeg,webp|max:5120',          
         ], [
             'name.regex' => 'Nama hanya boleh berisi huruf dan spasi!',
+            'password.confirmed' => 'Konfirmasi password tidak cocok!',
         ]);
 
         $nama_foto = $user->foto;

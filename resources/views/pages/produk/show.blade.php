@@ -37,18 +37,6 @@
 
       </div>
     </div>
-  @if (session('pesan'))
-      <div class='alert alert-primary m-3 mb-0'>{{session('pesan')}}</div>
-  @endif
-  @if ($errors->any())
-      <div class="alert alert-danger m-3 mb-0">
-          <ul class="mb-0">
-              @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-              @endforeach
-          </ul>
-      </div>
-  @endif
 
   <div class="card-body">
     <div class="table-responsive">
@@ -76,9 +64,7 @@
       <td class="text-nowrap" style="width: 1%;">
         <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#Detail{{$item->id_produk}}">Detail</button>
         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Edit{{$item->id_produk}}">Edit</button>
-        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Hapus{{$item->id_produk}}">
-            Hapus
-        </button>
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Hapus{{$item->id_produk}}">Hapus</button>
       </td>
     </tr> 
     @endforeach
@@ -112,7 +98,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-        <button type="submit" class="btn btn-primary">Iya</button>
+        <button type="submit" class="btn btn-danger">Iya</button>
       </div>
     </form>
   </div>

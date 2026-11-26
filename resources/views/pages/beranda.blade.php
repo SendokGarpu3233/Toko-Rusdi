@@ -5,9 +5,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="h3 mb-0 text-gray-800">Dashboard Toko</h2>
 </div>
-@if (session('pesan'))
-    <div class="alert alert-success">{{session('pesan')}}</div>
-@endif
 
 <!-- 1. Kartu Ringkasan Angka -->
 <div class="card mb-4">
@@ -102,9 +99,23 @@
                     <tbody>
                         @foreach ($stokMenipis as $item)
                             <tr>
-                                <td>{{ $item->nama_produk }}</td>
-                                <td class="text-danger font-weight-bold">{{ $item->stok }} unit</td>
-                                <td>
+                                <td class="align-middle">
+                                    <div class="d-flex align-items-center">
+                                        @if ($item->gambar)
+                                            <img src="{{ asset('uploads/' . $item->gambar) }}" class="rounded border mr-2" style="width: 40px; height: 40px; object-fit: cover; flex-shrink: 0;">
+                                        @else
+                                            <div class="rounded border bg-light d-flex align-items-center justify-content-center text-muted mr-2" style="width: 40px; height: 40px; flex-shrink: 0;">
+                                                <i class="fas fa-image"></i>
+                                            </div>
+                                        @endif
+                                        <div>
+                                            <div class="font-weight-bold text-dark">{{ $item->nama_produk }}</div>
+                                            <small class="text-muted">{{ $item->kode_produk }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-danger font-weight-bold">{{ $item->stok }} unit</td>
+                                <td class="align-middle">
                                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Restok{{$item->id_produk}}">Edit</button>
                                 </td>
                             </tr>
