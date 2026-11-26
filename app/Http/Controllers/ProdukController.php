@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\produk;
-use App\Models\kategori;
+use App\Models\Kategori;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,7 +35,7 @@ class ProdukController extends Controller
         ->select('tb_produk.*', 'tb_kategori.nama_kategori')
         ->get(); //query untuk mengambil semua data yang ada di tb_produk
 
-        $data_kategori = kategori::get();
+        $data_kategori = Kategori::get();
 
         return view('pages.produk.show', [
             'data_toko'=>$toko,
@@ -45,7 +45,7 @@ class ProdukController extends Controller
     }
 
     public function create() {
-        $data_kategori = kategori::get();
+        $data_kategori = Kategori::get();
         return view('pages.produk.add', [
             'data'=>$data_kategori
         ]);
@@ -106,7 +106,7 @@ class ProdukController extends Controller
     //menampilkan halaman edit
     public function edit($id_produk){
         $data = produk::findOrFail($id_produk);
-        $data_kategori = kategori::get();
+        $data_kategori = Kategori::get();
 
         return view('pages.produk.edit', [
             'produk' =>$data,
@@ -180,7 +180,7 @@ class ProdukController extends Controller
         }
 
         $produkSampah   = produk::onlyTrashed()->get();
-        $kategoriSampah = kategori::onlyTrashed()->get();
+        $kategoriSampah = Kategori::onlyTrashed()->get();
 
         return view('pages.produk.trash', [
             'data_sampah'          => $produkSampah,

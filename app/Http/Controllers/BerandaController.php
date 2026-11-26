@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\produk;
-use App\Models\kategori;
+use App\Models\Kategori;
 use Illuminate\Support\Facades\DB;
 
 class BerandaController extends Controller
@@ -16,7 +16,7 @@ class BerandaController extends Controller
 
         // Data ringkasan
         $totalProduk   = produk::count();
-        $totalKategori = kategori::count();
+        $totalKategori = Kategori::count();
         $totalStok     = produk::sum('stok');
 
         // 1. Data produk dengan stok menipis (< 10 unit)

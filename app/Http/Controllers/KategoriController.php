@@ -17,7 +17,7 @@ class KategoriController extends Controller
         //DB::table("tb_kategori')->get();
         $search = $request->keyword;
 
-        $kategori = kategori::when($search, function($query,$search) {
+        $kategori = Kategori::when($search, function($query,$search) {
             return $query->where('nama_kategori', 'like', "%{$search}%")
             ->orWhere('deskripsi', 'like', "%{$search}%");
         }) ->    get();
@@ -46,7 +46,7 @@ class KategoriController extends Controller
             'nama_kategori.regex' => 'Nama kategori tidak boleh mengandung simbol aneh!',
         ]);
 
-        kategori::create([
+        Kategori::create([
             'nama_kategori' => $request->nama_kategori,
             'deskripsi' => $request->deskripsi,
         ]);
@@ -69,7 +69,7 @@ class KategoriController extends Controller
      */
     public function edit(string $id_kategori)
     {
-        $data = kategori::findOrFail($id_kategori);
+        $data = Kategori::findOrFail($id_kategori);
 
         return view('pages.kategori.edit', [
             'kategori' =>$data
@@ -101,7 +101,7 @@ class KategoriController extends Controller
      */
     public function destroy(string $nama_kategori)
     {
-        $kategori = kategori::findOrFail($nama_kategori);
+        $kategori = Kategori::findOrFail($nama_kategori);
         $nama_kategori = $kategori->nama_kategori;
         $kategori->delete();
 

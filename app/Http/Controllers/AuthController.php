@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     //tampilan form login
     public function showLogin() {
-        return view('auth.login');
+        return view('Auth.login');
     }
 
     //proses pengecekan email dan loginya
